@@ -1,0 +1,129 @@
+<odoo>
+    <data>
+        <template id="report_payment_receipt_document_custom" inherit_id="account.report_payment_receipt_document">
+            <xpath expr="//div[@class='page']" position="replace">
+                <div class="page">
+                    <h3><strong>Payment Receipt: <span t-field="o.name"/></strong></h3>
+                    <div class="row mt64">
+                        <div class="col-6" t-if="o.date">
+                            <strong>Payment Date: </strong> <span t-field="o.date"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6" t-if="o.partner_type">
+                            <t t-if="o.partner_type == 'customer'">
+                                <strong>Customer: </strong>
+                            </t>
+                            <t t-if="o.partner_type == 'supplier'">
+                                <strong>Vendor: </strong>
+                            </t><span t-field="o.partner_id"/>
+                        </div>
+                        <div class="col-6" t-if="o.payment_method_id">
+                            <strong>Payment Method: </strong><span t-field="o.payment_method_id.name"/>
+                        </div>
+                    </div>
+                    <div class="row mb64">
+                        <div class="col-6" t-if="o.amount">
+                            <strong>Payment Amount: </strong><span t-field="o.amount" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                        </div>
+                        <div class="col-6" t-if="o.check_number">
+                            <h5><strong>Check Number: </strong><span t-field="o.check_number"/></h5>
+                        </div>
+                    </div>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th><span>Invoice Date</span></th>
+                                <th><span>Invoice Number</span></th>
+                                <th><span>Reference</span></th>
+                                <th class="text-right">Invoice Amount</th>
+                                <th class="text-right">Tax</th>
+                                <th class="text-right">Retention</th>
+                                <th class="text-right">Payment</th>
+<!--                                <th class="text-right"><span>Original Amount</span></th>-->
+<!--                                <th class="text-right"><span>Amount Paid</span></th>-->
+<!--                                <th class="text-right"><span>Balance</span></th>-->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="o.move_id._get_reconciled_invoices_partials()" t-as="rec">
+                                <t t-set="amount" t-value="rec[1]"/>
+                                <t t-set="inv" t-value="rec[2].move_id"/>
+                                <t t-if="inv.move_type != 'entry'">
+
+                                    <t t-set="amount_total" t-value="0.00"></t>
+                                    <t t-set="amount_tax" t-value="0.00"></t>
+                                    <t t-set="amount_service" t-value="0.00"></t>
+                                    <t t-set="amount_paid" t-value="0.00"></t>
+                                    <tr t-foreach="inv.line_ids" t-as="line">
+                                        <t t-if="line.tax_line_id.id > 0">
+                                            <t t-if="line.tax_line_id.tax_scope == 'service'">
+                                                <t t-set="amount_service" t-value="amount_service + line.balance"/>
+                                            </t>
+                                            <t t-if="line.tax_line_id.tax_scope != 'service'">
+                                                <t t-set="amount_tax" t-value="amount_tax + line.balance"/>
+                                            </t>
+                                        </t>
+                                    </tr>
+
+                                    <t t-if="amount_service &lt; 0">
+                                        <t t-set="amount_service" t-value="amount_service * -1"/>
+                                    </t>
+
+
+                                    <t t-set="amount_paid" t-value="inv.amount_untaxed + amount_tax - amount_service"></t>
+
+
+                                    <td><span t-field="inv.invoice_date"/></td>
+                                    <td><span t-field="inv.name"/></td>
+                                    <td><span t-field="inv.ref"/></td>
+                                    <td class="text-right"><span t-field="inv.amount_untaxed"/></td>
+
+
+
+                                    <td class="text-right"><span t-esc="amount_tax" t-options="{'widget': 'monetary', 'display_currency': inv.currency_id}"/></td>
+                                    <td class="text-right"><span t-esc="amount_service" t-options="{'widget': 'monetary', 'display_currency': inv.currency_id}"/></td>
+                                    <td class="text-right"><span t-esc="amount_paid" t-options="{'widget': 'monetary', 'display_currency': inv.currency_id}"/></td>
+
+
+<!--                                    <td class="text-right"><span t-esc="amount_tax"/></td>-->
+<!--                                    <td class="text-right"><span t-esc="amount_service"/></td>-->
+<!--                                    <td class="text-right"><span t-esc="amount_paid"/></td>-->
+                                </t>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="report_payment_receipt">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="lang" t-value="o.partner_id.lang or o.company_id.partner_id.lang"/>
+                    <t t-call="payment_receipt_custom.report_payment_receipt_document_custom" t-lang="lang"/>
+                </t>
+            </t>
+        </template>
+<!--
+        <template id="listing">
+          <ul>
+            <li t-foreach="objects" t-as="object">
+              <a t-attf-href="#{ root }/objects/#{ object.id }">
+                <t t-esc="object.display_name"/>
+              </a>
+            </li>
+          </ul>
+        </template>
+        <template id="object">
+          <h1><t t-esc="object.display_name"/></h1>
+          <dl>
+            <t t-foreach="object._fields" t-as="field">
+              <dt><t t-esc="field"/></dt>
+              <dd><t t-esc="object[field]"/></dd>
+            </t>
+          </dl>
+        </template>
+-->
+    </data>
+</odoo>
