@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="remittance_payments.list">
+      <field name="name">remittance_payments list</field>
+      <field name="model">remittance_payments.remittance_payments</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="remittance_payments.action_window">
+      <field name="name">remittance_payments window</field>
+      <field name="res_model">remittance_payments.remittance_payments</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="remittance_payments.action_server">
+      <field name="name">remittance_payments server</field>
+      <field name="model_id" ref="model_remittance_payments_remittance_payments"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="remittance_payments" id="remittance_payments.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="remittance_payments.menu_1" parent="remittance_payments.menu_root"/>
+    <menuitem name="Menu 2" id="remittance_payments.menu_2" parent="remittance_payments.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="remittance_payments.menu_1_list" parent="remittance_payments.menu_1"
+              action="remittance_payments.action_window"/>
+    <menuitem name="Server to list" id="remittance_payments" parent="remittance_payments.menu_2"
+              action="remittance_payments.action_server"/>
+-->
+  </data>
+</odoo>

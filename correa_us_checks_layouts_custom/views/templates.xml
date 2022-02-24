@@ -1,0 +1,243 @@
+<odoo>
+    <data>
+
+
+        <template id="assets_common" name="l10n_us_check_printing pdf assets" inherit_id="web.report_assets_common">
+            <xpath expr="." position="inside">
+                <!--                <link rel="stylesheet" href="/correa_us_checks_layouts_custom/static/src/font/stylesheet.css"/>-->
+                <link rel="stylesheet" type="text/scss" href="/correa_us_checks_layouts_custom/static/src/scss/report_check_commons.scss"/>
+                <link rel="stylesheet" type="text/scss" href="/correa_us_checks_layouts_custom/static/src/scss/report_check_bottom.scss"/>
+                <link rel="stylesheet" type="text/scss" href="/l10n_us_check_printing/static/src/scss/report_check_middle.scss"/>
+                <link rel="stylesheet" type="text/scss" href="/l10n_us_check_printing/static/src/scss/report_check_top.scss"/>
+
+            </xpath>
+        </template>
+
+        <template id="ckus_stub_custom" inherit_id="l10n_us_check_printing.ckus_stub">
+            <!--            <t t-set="class_attr" t-value="'ckus_stub ckus_stub_' + str(stub_num)"/>-->
+            <xpath expr="//div[@t-attf-class='ckus_stub ckus_stub_{{ stub_num }}']" position="replace">
+
+                <div t-attf-class="ckus_stub ckus_stub_{{ stub_num }}">
+<!--                    <div class="row summary_line">-->
+                        <!--                        <div class="col-xs-4 text-left">-->
+                        <!--                            <span t-esc="page['partner_name']"/>-->
+                        <!--                        </div>-->
+                        <!--                        <div class="col-xs-4 text-middle">-->
+                        <!--                            <span t-esc="page['date']"/>-->
+                        <!--                        </div>-->
+                        <!--                        <div class="col-xs-4 text-right sequence_number">-->
+<!--                                                    <span t-if="page['sequence_number']" t-esc="page['sequence_number']"/>-->
+                        <!--                        </div>-->
+
+
+<!--                    </div>-->
+                    <table class="table table-bordered table-sm stub_lines" style="border-collapse: collapse; margin-bottom: 0px; font-size: 7.5pt !important;">
+                        <thead>
+                            <tr>
+<!--                                <th class="text-left">VENDOR ID</th>-->
+                                <th class="text-left">NAME</th>
+                                <th class="text-left">CHECK DATE</th>
+                                <th class="text-right">CHECK NUMBER</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+<!--                                <td class="text-left">-->
+<!--&lt;!&ndash;                                    <t t-if="page['partner_name']" t-esc="page['partner_name']"/>&ndash;&gt;-->
+<!--                                </td>-->
+                                <td class="text-left text-truncate" style="max-width: 500px;">
+                                    <t t-esc="page['partner_name']"/>
+                                </td>
+                                <td class="text-left">
+                                    <t t-esc="page['date']"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-if="page['sequence_number']" t-esc="page['sequence_number']"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="table table-bordered table-sm stub_lines" t-if="page['stub_lines']" style="border-collapse: collapse; margin-top: 0px; font-size: 7.5pt !important;">
+                        <thead>
+                            <tr>
+                                <th class="text-left">Date</th>
+                                <th class="text-left">Invoice</th>
+                                <th class="text-right">Invoice Amount</th>
+                                <th class="text-right">Tax</th>
+                                <th class="text-right">Retention</th>
+                                <th class="text-right">Payment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="page['stub_lines']" t-as="stub_line">
+                                <t t-if="stub_line.get('header')">
+                                    <tr>
+                                        <th colspan="6">
+                                            <t t-esc="stub_line['name']"/>
+                                        </th>
+                                    </tr>
+                                </t>
+                                <t t-if="not stub_line.get('header')">
+                                    <tr>
+                                        <td class="text-left">
+                                            <t t-if="stub_line['due_date']" t-esc="stub_line['due_date']"/>
+                                        </td>
+
+
+<!--                                        <td class="text-left text-truncate" style="max-width: 500px;">-->
+<!--&lt;!&ndash;                                            <t t-esc="stub_line['number']"/>&ndash;&gt;-->
+<!--                                            <t t-if="o.ref" t-esc="o.ref"/>-->
+<!--&lt;!&ndash;                                        <t t-esc="stub_line['ref']"/>&ndash;&gt;-->
+<!--&lt;!&ndash;&ndash;&gt;-->
+
+<!--                                        </td>-->
+                                        <td class="text-left text-truncate" style="max-width: 500px;">
+
+                                            <t t-set="number" t-value="stub_line['number']" />
+                                            <t t-set="number_formatted" t-value="'-'.join(number.split('-')[1:]).strip() if len(number.split('-')) > 1 else number" />
+                                            <t t-esc="number_formatted"/>
+                                        </td>
+
+                                        <td class="text-right">
+                                            <t t-esc="stub_line['amount_total']"/>
+                                        </td>
+<!--                                        <td class="text-right">-->
+<!--                                            <t t-esc="stub_line['amount_residual']"/>-->
+<!--                                        </td>-->
+                                        <td class="text-right">
+                                            <t t-esc="stub_line['amount_tax']"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="stub_line['amount_service']"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="stub_line['amount_paid']"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                            <tr t-if="page['stub_cropped']">
+                                <td colspan="6" class="text-right">...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="stub_total_amount">Check Amount:
+                        <span class="text-nowrap">
+                            <t t-esc="page['amount']"/>
+                        </span>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+
+        <template id="custom_report_template"
+                  inherit_id="l10n_us_check_printing.ckus_check">
+
+            <!--        <template inherit_id="custom_ckus_check" ingerid_id="ckus_check">-->
+            <xpath expr="//div[@class='ckus_check']" position="replace">
+                <div class="ckus_check">
+                    <t t-if="page['state'] == 'cancelled'">
+                        <div class="o-watermark">VOID</div>
+                    </t>
+                    <t t-set="company" t-value="o.company_id"/>
+                    <t t-set="partner" t-value="company.partner_id"/>
+
+                    <!--                    <t t-set="company_name" t-value="company.partner_id_name"/>-->
+                    <!--                    <t t-set="company_name" t-value="company.partner_id_name"/>-->
+
+                    <!--                    <t t-if="partner" >-->
+                    <!--                        <t t-set="address">-->
+                    <!--                            <div t-esc="partner" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True}"/>-->
+                    <!--                        </t>-->
+                    <!--                    </t>-->
+
+                    <div class="ckus_company_name" t-esc="partner.name"/>
+
+                    <div class="ckus_company_addr" t-esc="partner" t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
+
+                    <div class="ckus_company_phone" t-esc="partner.phone"/>
+
+
+                    <div class="ckus_sequence_number" t-esc="page['sequence_number']"/>
+                    <div class="ckus_date" t-esc="page['date']"/>
+                    <!--                    <div class="ckus_payee_name" t-esc="page['partner_name']"/>-->
+
+                    <div class="ckus_paytotheorderof">PAY TO THE<br/>ORDER OF
+                    </div>
+
+                    <!--                    <link rel="stylesheet"-->
+                    <!--                          href="https://fonts.googleapis.com/css?family=Tangerine" />-->
+                    <!--                    <link rel="stylesheet"-->
+                    <!--                          href="https://paycloud.prcomputer.com/micr-font/stylesheet.css" />-->
+                    <!--                    <link href="https://developer.mozilla.org/@api/deki/files/2934/=VeraSeBd.ttf" rel='stylesheet' type='text/css' />-->
+
+                    <!--                    <style type = "text/css">-->
+                    <!--                        .ckus_mrc_font span { font-family: 'Jolly Lodger', cursive; }-->
+                    <!--                    </style>-->
+
+                    <!--                    font-family: "Bitstream Vera Serif Bold";-->
+                    <!--                    src: url("https://developer.mozilla.org/@api/deki/files/2934/=VeraSeBd.ttf");-->
+                    <div class="ckus_micr_font">
+                        <!--                        | Transito = Bank Identifier Code | Cuenta: AccountNumber| Num Cheque-->
+
+                        <t t-set="journal" t-value="o.journal_id"/>
+                        <t t-set="bank" t-value="journal.bank_id"/>
+
+
+                        <t t-set="transit_number" t-value="bank.bic"/>
+                        <t t-set="account" t-value="journal.bank_account_id.acc_number"/>
+                        <t t-set="check_number" t-value="page['sequence_number']"/>
+
+
+                        <t t-set="micr_text" t-value="'C'+ check_number + 'C A' + transit_number + 'A ' + account + 'C'"/>
+
+                        <!--                        'C'+ check_number + 'DDCCD A' + transit_number + 'A ' + account + 'C'-->
+                        <!--                        'A'+ transit_number + 'A '+ account + 'C ' + check_number-->
+
+
+                        <span t-esc="micr_text" style="font-family: 'MICR Encoding';"/>
+
+
+                    </div>
+                    <div class="ckus_amount">
+                        <t t-esc="page['amount']"/>
+                    </div>
+                    <div class="ckus_amount_in_word">
+                        <!--                        <u>-->
+                        <t t-esc="page['amount_in_word'].replace('*', '')"></t>**********************************************
+                        <!--                        </u>-->
+                    </div>
+
+                    <div class="underline_signature1">__________________________________________________________________MP</div>
+
+                    <div class="underline_signature2">__________________________________________________________________MP</div>
+
+                    <div class="ckus_payee_addr" t-esc="page['partner_id']" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                    <!--                    <div class="ckus_memo" t-esc="page['memo']"/>-->
+                </div>
+            </xpath>
+        </template>
+        <!--
+                <template id="listing">
+                  <ul>
+                    <li t-foreach="objects" t-as="object">
+                      <a t-attf-href="#{ root }/objects/#{ object.id }">
+                        <t t-esc="object.display_name"/>
+                      </a>
+                    </li>
+                  </ul>
+                </template>
+                <template id="object">
+                  <h1><t t-esc="object.display_name"/></h1>
+                  <dl>
+                    <t t-foreach="object._fields" t-as="field">
+                      <dt><t t-esc="field"/></dt>
+                      <dd><t t-esc="object[field]"/></dd>
+                    </t>
+                  </dl>
+                </template>
+        -->
+    </data>
+</odoo>

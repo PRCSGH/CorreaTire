@@ -1,0 +1,197 @@
+.ckus_bottom_page {
+
+
+    //@font-face {
+    //    font-family: 'MICR Encoding';
+    //    //src: url('/correa_us_checks_layouts_custom/static/src/font/MICREncoding.eot');
+    //    //src: url('/correa_us_checks_layouts_custom/static/src/font/MICREncoding.eot?#iefix') format('embedded-opentype'),
+    //    //     url('/correa_us_checks_layouts_custom/static/src/font/MICREncoding.woff2') format('woff2'),
+    //    //     url('/correa_us_checks_layouts_custom/static/src/font/MICREncoding.woff') format('woff'),
+    //    //     url('/correa_us_checks_layouts_custom/static/src/font/MICREncoding.svg#MICREncoding') format('svg');
+    //    src: url(file:///home/odooadmin/font/MICREncoding.eot);
+    //    //src: url(file:///home/odooadmin/font/MICREncoding.eot?#iefix) format('embedded-opentype'),
+    //    src: url(file:///home/odooadmin/font/MICREncoding.ttf) format('truetype'),
+    //
+    //    url(file:///home/odooadmin/font/MICREncoding.woff2) format('woff2'),
+    //    url(file:///home/odooadmin/font/MICREncoding.woff) format('woff'),
+    //    url(file:///home/odooadmin/font/MICREncoding.svg#MICREncoding) format('svg');
+    //
+    //    //url(file:///home/odooadmin/font/MICREncoding.ttf)
+    //
+    //    //src: url('font/MICREncoding.eot');
+    //    //src: url('font/MICREncoding.eot?#iefix') format('embedded-opentype'),
+    //    //url('font/MICREncoding.woff2') format('woff2'),
+    //    //url('font/MICREncoding.woff') format('woff'),
+    //    //url('font/MICREncoding.svg#MICREncoding') format('svg');
+    //    font-weight: normal;
+    //    font-style: normal;
+    //    font-display: swap;
+    //}
+
+    //@font-face {
+    //    font-family: 'YourFontName'; /*a name to be used later*/
+    //    src: url('https://paycloud.prcomputer.com/micr-font/MICREncoding.ttf'); /*URL to font*/
+    //}
+
+    //@font-face {
+    //    font-family: "Bitstream Vera Serif Bold";
+    //    src: url("https://developer.mozilla.org/@api/deki/files/2934/=VeraSeBd.ttf");
+    //}
+
+    .ckus_stub_1 {
+        top: 0.0in; //0.3
+    }
+    .ckus_stub_2 {
+        top: 3.85in; //4.15
+    }
+    .ckus_check {
+        top: 7.37in; //7.5
+        height: 2.80in;
+    }
+
+    .ckus_sequence_number {
+        top: 0.6in;
+        left: 6.51in;
+        width: 0.7in;
+        text-align: left;
+        font-size: 10pt;
+
+    }
+
+    .ckus_company_name {
+        top: 0.6in;
+        left: 0.25in;
+        width: 5.5in;
+        text-align: left;
+        font-size: 14pt;
+        font-weight: bold;
+    }
+    .ckus_company_addr {
+        top: 0.88in;
+        line-height: normal;
+        font-size: 9.5pt;
+        left: 0.25in;
+        width: 5.5in;
+        text-align: left;
+        text-transform: uppercase;
+    }
+
+    .ckus_company_phone{
+        top: 1.20in;// 2.02in;
+        left: 0.25in;
+        line-height: 1.1em;
+        font-size: 9.5pt;
+    }
+
+    //.ckus_micr_font span{
+    //    font-family: "Bitstream Vera Serif Bold", serif
+    //}
+
+
+    .ckus_payee_name {
+        top: 1.08in;
+        left: 0.9in;
+        width: 5.5in;
+        text-align: left;
+    }
+    .ckus_paytotheorderof{
+        top: 1.45in;// 2.02in;
+        left: 0.25in;
+        line-height: 1.1em;
+        font-size: 9.5pt;
+        text-align: left;
+    }
+    .ckus_payee_addr {
+        top: 1.45in;// 2.02in;
+        left: 1.35in;
+        line-height: 1.1em;
+        font-size: 10.5pt;
+    }
+    .ckus_date {
+        top: 1.45in; //0.6
+        left: 6.51in; //6.51in
+        width: 1.50in;
+        text-align: right;
+        font-size: 10.5pt;
+
+    }
+    .ckus_amount {
+        top: 2.14in;
+        left: 6.51in;
+        width: 1.50in;
+        text-align: right;
+        font-size: 10.5pt;
+
+
+    }
+    .ckus_amount_in_word {
+        font-size: 9.5pt;
+        top: 2.10in;
+        left: 0.25in;
+        width: 7in;
+        text-align: left;
+        font-weight: normal;
+        overflow: hidden;
+    }
+
+
+
+    .underline_signature1{
+        font-size: 9pt;
+        top: 2.52in;
+        //left: 0.25in;
+        //width: 7in;
+        left: 4.0in;
+        width: 4in;
+        text-align: right;
+        font-weight: normal;
+        overflow: hidden;
+    }
+
+    .underline_signature2{
+        font-size: 9pt;
+        top: 2.75in;
+        //left: 0.25in;
+        //width: 7in;
+        left: 4.0in;
+        width: 4in;
+        text-align: right;
+        font-weight: normal;
+        overflow: hidden;
+    }
+
+    .ckus_micr_font {
+
+        top: 2.90in; //2.45
+        left: 1.0in; //3.51 //6.51in
+        width: 6in;
+        text-align: center;
+
+        font-weight: bold !important;
+        font-style: normal;
+        font-size: 20pt !important
+
+    }
+
+    .ckus_memo {
+        top:  2.45in;
+        left: 0.6in;
+        width: 2.9in;
+        text-align: left;
+        font-size: 0.9em;
+        overflow: hidden;
+    }
+}
+
+@font-face {
+    font-family: 'MICR Encoding';
+    src: url('font/MICREncoding.eot');
+    src: url('font/MICREncoding.eot?#iefix') format('embedded-opentype'),
+    url('font/MICREncoding.woff2') format('woff2'),
+    url('font/MICREncoding.woff') format('woff'),
+    url('font/MICREncoding.svg#MICREncoding') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
