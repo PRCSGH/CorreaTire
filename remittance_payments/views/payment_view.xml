@@ -1,0 +1,23 @@
+<odoo>
+  <record id="form_inh_account_payment" model="ir.ui.view">
+    <field name="name">form.inh.account.payment</field>
+    <field name="model">account.payment</field>
+    <field name="inherit_id" ref="account.view_account_payment_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="/form/sheet/group/group/field[@name='move_id']" position="after">
+          <field name="is_remittance" string="Is Remittance"/>
+      </xpath>
+    </field>
+  </record>
+
+  <record id="search_inh_account_payment" model="ir.ui.view">
+    <field name="name">search.inh.account.payment</field>
+    <field name="model">account.payment</field>
+    <field name="inherit_id" ref="account.view_account_payment_search"/>
+    <field name="arch" type="xml">
+      <xpath expr="/search" position="inside">
+          <field name="is_remittance" string="Is Remittance"/>
+      </xpath>
+    </field>
+  </record>
+</odoo>

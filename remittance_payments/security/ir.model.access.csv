@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_remittance_payments_remittance_payments,remittance_payments.remittance_payments,model_remittance_payments_remittance_payments,base.group_user,1,1,1,1
